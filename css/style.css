@@ -225,6 +225,11 @@ img {
   margin: 0 auto;
 }
 
+.w-860 {
+  width: 860px;
+  margin: 0 auto;
+}
+
 .w-500 {
   max-width: 500px;
   margin: 0 auto;
@@ -1852,6 +1857,11 @@ img {
   border-bottom: 1px solid #ee700c;
 }
 
+.heading-three {
+  padding-bottom: 4px;
+  border-bottom: 1px solid red;
+}
+
 .border-third-dotted div {
   border-bottom: 1px dotted #e1e1e1;
   margin-bottom: 2px;
@@ -2339,7 +2349,6 @@ table {
   margin: 0 auto;
   max-width: 100%;
   line-height: 1.25rem;
-  font-family: "Lato", sans-serif;
   color: #555;
 }
 .detail-content figure figcaption em {
@@ -2347,8 +2356,10 @@ table {
 }
 .detail-content p a {
   color: #00f;
-  text-decoration: underline;
   font-style: italic;
+}
+.detail-content p a:hover {
+  text-decoration: underline;
 }
 .detail-content p, .detail-content li {
   font-size: 17px;
@@ -2472,6 +2483,200 @@ table {
   height: auto;
 }
 
+.share-mb .share-twitter a {
+  background: #1b95e0;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 3px;
+}
+.share-mb .share-twitter a .icon {
+  width: 14px;
+  height: auto;
+  margin-right: 2px;
+}
+.share-mb .share-fb a {
+  background: #1877f2;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 3px;
+  display: inline-block;
+}
+
+.post-source, .video-source {
+  font-style: italic;
+  font-size: 14px;
+  color: #aaa;
+}
+
+.post-source {
+  text-align: right;
+}
+.post-source .link-wrapper {
+  color: #333;
+  background: #ebebeb;
+  border-radius: 20px;
+  display: inline-block;
+  padding: 8px 15px 8px 15px;
+  position: relative;
+}
+.post-source .link-wrapper:hover .full-url {
+  opacity: 100;
+  visibility: visible;
+}
+.post-source .short-url {
+  cursor: pointer;
+  font: 600 12px/14px Arial;
+}
+.post-source .short-url .fa-external-link-alt {
+  color: #999;
+}
+.post-source .full-url {
+  position: absolute;
+  width: 300px;
+  text-align: left;
+  bottom: calc(100% + 10px);
+  right: 20px;
+  background-color: #333;
+  color: #fff;
+  padding: 10px 15px;
+  border-radius: 5px;
+  visibility: hidden;
+  -webkit-transition: opacity 0.5s, visibility 0.5s;
+  transition: opacity 0.5s, visibility 0.5s;
+  opacity: 0;
+}
+.post-source .full-url .link {
+  font: normal 11px/15px Arial;
+  color: #fff !important;
+  display: block;
+  margin-top: 5px;
+}
+.post-source .full-url > div span {
+  color: rgba(255, 255, 255, 0.8);
+  font: normal 10px/15px Arial;
+}
+.post-source .full-url .text {
+  float: left;
+}
+.post-source .full-url .icon-copy {
+  float: right;
+  cursor: pointer;
+}
+.post-source .full-url .icon-copy:hover {
+  color: #fff;
+}
+.post-source .full-url::before {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  border: 10px solid transparent;
+  border-top-color: #333;
+  bottom: -20px;
+  right: 25px;
+}
+.post-source .full-url #copyURL {
+  font-size: 1px;
+  opacity: 0;
+  position: absolute;
+  color: transparent;
+  background-color: transparent;
+}
+
+.clearfix::after {
+  content: "";
+  display: block;
+  height: 0;
+  clear: both;
+}
+
+.tags {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.tags .tag-link {
+  display: inline-block;
+  padding: 0 8px;
+  line-height: 30px;
+  background-color: #e5e9ec;
+  font-size: 14px;
+  margin-right: 6px;
+  margin-bottom: 10px;
+  border-radius: 3px;
+}
+
+.print-box .detail-content {
+  padding-left: 0;
+}
+.print-box .detail-content p {
+  text-align: justify;
+  word-break: break-word;
+}
+.print-box .print-btn {
+  cursor: pointer;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  background-color: #9b9b9b;
+}
+.print-box .print-btn:hover {
+  background-color: #555;
+}
+
+.logo-print img {
+  width: 230px;
+  height: auto;
+}
+
+@media print {
+  body, html {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    margin-left: 20mm;
+    visibility: hidden;
+  }
+
+  .print-box__container {
+    visibility: visible;
+    -webkit-print-color-adjust: exact;
+    color-adjust: exact;
+    width: calc(100% - 20mm);
+    max-width: 100%;
+    page-break-inside: avoid;
+    overflow: visible;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .print-btn {
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .detail-content {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .detail-content, .expNoEdit, .expEdit {
+    page-break-inside: avoid;
+  }
+
+  h1, h2, p, figure {
+    page-break-inside: avoid;
+  }
+}
 #back-top {
   position: fixed;
   right: 1rem;
@@ -2574,10 +2779,6 @@ table {
 
   .d-lg-grid {
     display: grid;
-  }
-
-  .detail-content {
-    padding-left: 2rem;
   }
 }
 @media (max-width: 992px) {
@@ -2694,6 +2895,10 @@ table {
     background-color: #ededed;
   }
 
+  .detail-primary {
+    max-width: 500px;
+    margin: auto;
+  }
   .detail-primary__container {
     display: block;
   }
@@ -2711,6 +2916,13 @@ table {
     padding-left: 0;
     width: 100%;
     max-width: 100%;
+  }
+
+  .same-category .article-small {
+    margin: -8px;
+  }
+  .same-category .article-small .article {
+    padding: 8px;
   }
 }
 @media (max-width: 767px) {
@@ -2761,25 +2973,35 @@ table {
     font-size: 16px;
   }
 
-  .detail-author__text {
-    display: block;
-  }
-  .detail-author__text1 {
-    padding-left: 0;
-    margin-bottom: 2px;
-  }
-  .detail-author__text1::before {
-    content: none;
+  .detail-title {
+    font-size: 28px;
   }
 
-  .detail-content .articles .article .article__title {
+  .detail-sapo p {
     font-size: 16px;
-    font-family: "Mulish";
-    font-weight: 600;
   }
-  .detail-content .articles .article .time-public,
-.detail-content .articles .article .article__des {
-    display: none;
+
+  .detail-content figure {
+    margin-bottom: 15px;
+  }
+  .detail-content figure figcaption {
+    padding: 8px 10px;
+    font-size: 14px;
+  }
+  .detail-content > h2 {
+    font-size: 26px;
+  }
+  .detail-content > h3 {
+    font-size: 24px;
+  }
+  .detail-content > h4 {
+    font-size: 22px;
+  }
+  .detail-content > h5 {
+    font-size: 20px;
+  }
+  .detail-content > h6 {
+    font-size: 18px;
   }
 
   .footer-bot__left {

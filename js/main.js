@@ -240,20 +240,20 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
     // Hàm hiển thị nút backTop dựa trên vị trí cuộn trang
-function handleBackTopVisibility() {
-    if (backTop) {
-        if (
-            document.body.scrollTop > 300 ||
-            document.documentElement.scrollTop > 300
-        ) {
-            backTop.style.opacity = 1;
-            backTop.style.visibility = "visible";
-        } else {
-            backTop.style.opacity = 0;
-            backTop.style.visibility = "hidden";
+    function handleBackTopVisibility() {
+        if (backTop) {
+            if (
+                document.body.scrollTop > 300 ||
+                document.documentElement.scrollTop > 300
+            ) {
+                backTop.style.opacity = 1;
+                backTop.style.visibility = "visible";
+            } else {
+                backTop.style.opacity = 0;
+                backTop.style.visibility = "hidden";
+            }
         }
     }
-}
     // Xử lý sự kiện khi cuộn trang
     function handleWindowScroll() {
         window.onscroll = function () {
@@ -262,6 +262,76 @@ function handleBackTopVisibility() {
         };
     }
 
+    // post source detail
+    function handlePostSourceDetail() {
+        //Tự động chuyển nguồn rỗng (không đặt nguồn) thành sohuutritue.net.vn
+        var sourceEl = document.querySelector('.post-source');
+
+        if(!sourceEl) return
+
+        var sourceHtml  = sourceEl.innerHTML;
+        if (sourceHtml == '') {
+        sourceEl.innerHTML = window.location.href.replace('thitruongbiz.vn', 'sohuutritue.net.vn');
+        }
+
+        /*thu gọn link nguồn*/
+        function isValidUrl() {
+            return /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3,3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2,2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2,2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2,2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:[/?#]\S*)?$/i.test(arguments[0]);
+          }
+          
+          function extractHostname(url) {
+            var hostname;
+            if (url.indexOf("//") > -1) {
+              hostname = url.split("/")[2];
+            } else {
+              hostname = url.split("/")[0];
+            }
+            hostname = hostname.split(":")[0];
+            hostname = hostname.split("?")[0];
+            return hostname;
+          }
+          
+          var sourceLinkEl = document.querySelector(".post-source");
+          var sourceLink = sourceLinkEl.innerHTML.trim();
+          if (sourceLinkEl.innerHTML == "") {
+            sourceLinkEl.remove();
+          }
+          if (!isValidUrl(sourceLink)) {
+            sourceLinkEl.innerHTML = "Nguồn : " + sourceLinkEl.innerHTML;
+          } else {
+            var shortLink = extractHostname(sourceLink);
+            var newInner =
+            '<div class="link-wrapper">\
+              <div class="full-url">\
+                <div class="clearfix">\
+                  <span class="text">Link bài gốc</span>\
+                  <span class="icon-copy">📋 Copy link</span>\
+                </div>\
+                <a class="link" href="'+ sourceLink + '" target="_blank" class="link" rel="nofollow"> ' + sourceLink + ' </a>\
+                <input style="font-size:10px;" type="text" value=" ' + sourceLink + ' " id="copyURL">\
+              </div>\
+              <div class="short-url">Nguồn ' + shortLink + '</div>\
+            </div>';
+            
+            sourceLinkEl.innerHTML = newInner;
+            var iconCopy = document.querySelector('.icon-copy');
+            iconCopy.addEventListener('click',function(){
+              document.querySelector('.icon-copy').innerHTML = "📋 Link đã copy";
+              var copyText = document.querySelector("#copyURL");
+              copyText.select();
+              copyText.setSelectionRange(0, 99999)
+              document.execCommand("copy");
+            })
+            var linkWrapper = document.querySelector('.link-wrapper');
+            linkWrapper.addEventListener('mouseleave',function() {
+              setTimeout(function(){
+                iconCopy.innerHTML = "📋 Copy link";
+              },200)
+            });
+          }
+
+
+    }
     // Khởi tạo tất cả các chức năng
     function initApp() {
         handleBackTop();
@@ -277,6 +347,7 @@ function handleBackTopVisibility() {
         initSliderThreeItems();
         // scroll
         handleWindowScroll();
+        handlePostSourceDetail();
     }
 
     // Bắt đầu khởi tạo ứng dụng
